@@ -4,7 +4,10 @@ from sqlalchemy.orm import Session
 from app.database.deps import get_db
 from app.schemas.user_schema import UserCreate
 from app.services.user_service import create_user, get_user_by_email
-
+from app.dependencies.auth_dependency import get_current_user
+from app.models.user import User
+from app.schemas.user_schema import UserProfileUpdate
+from app.services.user_service import update_user_profile
 router = APIRouter()
 
 
@@ -28,5 +31,39 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
             "name": new_user.name,
             "email": new_user.email,
             "career_goal": new_user.career_goal,
+            "education": new_user.education,
+            "experience": new_user.experience,
+            "skills": new_user.skills,
+
+            "github" : new_user.github,
+
+            "linkedin" : new_user.linkedin
         },
+    }
+@router.put("/profile")
+def update_profile(
+    profile: UserProfileUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
+    updated_user = update_user_profile(
+        db,
+        current_user,
+        profile
+    )
+
+    return {
+        "message": "Profile updated successfully",
+        "user": {
+            "id": updated_user.id,
+            "name": updated_user.name,
+            "email": updated_user.email,
+            "career_goal": updated_user.career_goal,
+            "education": updated_user.education,
+            "experience": updated_user.experience,
+            "skills": updated_user.skills,
+            "github": updated_user.github,
+            "linkedin": updated_user.linkedin
+        }
     }

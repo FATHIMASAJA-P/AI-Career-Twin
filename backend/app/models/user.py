@@ -10,3 +10,9 @@ class User(Base):
     email = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
     career_goal = Column(String)
+
+    education = Column(String, nullable=True)
+    experience = Column(String, nullable=True)
+    skills = Column(String, nullable=True)
+    github = Column(String, nullable=True)
+    linkedin = Column(String, nullable=True)
