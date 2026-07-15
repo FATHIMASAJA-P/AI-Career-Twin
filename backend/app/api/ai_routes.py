@@ -1,9 +1,8 @@
-from fastapi import APIRouter
-
+from fastapi import APIRouter, Depends
 from app.services.ai_service import generate_career_analysis
-from fastapi import Depends
 from app.dependencies.auth_dependency import get_current_user
 from app.models.user import User
+
 router = APIRouter()
 
 
@@ -23,6 +22,9 @@ Skills: {current_user.skills}
 
 Career Goal: {current_user.career_goal}
 """
+
+    # Temporary: print profile to terminal
+    print(profile)
 
     result = generate_career_analysis(profile)
 
