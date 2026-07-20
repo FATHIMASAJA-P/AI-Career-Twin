@@ -1,39 +1,31 @@
-from openai import OpenAI
-from app.config import OPENAI_API_KEY
+from google import genai
+from app.config import GEMINI_API_KEY
 
-client = OpenAI(api_key=OPENAI_API_KEY)
-
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 def generate_career_analysis(profile: str):
-
     prompt = f"""
     You are an expert AI Career Mentor.
 
-    Analyze this user's profile:
+    Analyze this profile:
 
     {profile}
 
     Give:
-
-    1. Career Readiness Score (0-100)
+    1. Career Readiness Score
     2. Strengths
     3. Missing Skills
     4. Learning Roadmap
-    5. Suitable Job Roles
+    5. Recommended Job Roles
     """
 
-    response = client.chat.completions.create(
-        model="gpt-4.1-mini",
-        messages=[
-            {
-                "role": "system",
-                "content": "You are an expert career mentor."
-            },
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
+    try:
+        response = client.models.generate_content(
+            model="gemini-3.1-flash-lite",
+            contents=prompt,
+        )
+        return response.text
 
-    return response.choices[0].message.content
+    except Exception as e:
+        print("Gemini Error:", e)
+        return None

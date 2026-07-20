@@ -13,3 +13,12 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
 )
+
+
+# 👇 Add this function
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
