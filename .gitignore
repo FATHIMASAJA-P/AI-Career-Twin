@@ -12,11 +12,18 @@ __pycache__/
 # Node.js
 node_modules/
 
+# Uploaded resumes
+uploads/
+
 # Logs
 *.log
 
 # OS files
 .DS_Store
 Thumbs.db
+
+
+# Database
+career_twin.db
 
 

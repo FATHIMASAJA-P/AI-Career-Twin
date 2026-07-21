@@ -58,3 +58,33 @@ Resume Content:
         "message": "Career analysis generated successfully",
         "analysis": result
     }
+
+def generate_ats_score(resume_text):
+
+    prompt = f"""
+You are an ATS Resume Reviewer.
+
+Analyze this resume.
+
+Give:
+
+1. ATS Score (0-100)
+
+2. Resume Strengths
+
+3. Missing Keywords
+
+4. Weak Sections
+
+5. Resume Improvements
+
+6. Final Verdict
+
+Resume:
+
+{resume_text}
+"""
+
+    response = model.generate_content(prompt)
+
+    return response.text
