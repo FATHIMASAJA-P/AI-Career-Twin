@@ -34,3 +34,33 @@ def login(
         "access_token": access_token,
         "token_type": "bearer"
     }
+from app.schemas.user_schema import UserCreate
+from app.services.user_service import (
+    get_user_by_email,
+    create_user,
+)
+
+@router.post("/register")
+def register(
+    user: UserCreate,
+    db: Session = Depends(get_db),
+):
+
+    existing_user = get_user_by_email(db, user.email)
+
+    if existing_user:
+        raise HTTPException(
+            status_code=400,
+            detail="Email already registered"
+        )
+
+    create_user(
+        db,
+        user.name,
+        user.email,
+        user.password
+    )
+
+    return {
+        "message": "User registered successfully"
+    }

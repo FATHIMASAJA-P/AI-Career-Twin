@@ -10,6 +10,8 @@ import CareerAnalysis from "./pages/CareerAnalysis";
 import JobMatch from "./pages/JobMatch";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Layout from "./components/Layout";
+
 
 function App() {
   return (
@@ -25,7 +27,13 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <Layout>
+                <Dashboard />
+
+
+
+              </Layout>
+              
             </ProtectedRoute>
           }
         />
@@ -34,7 +42,9 @@ function App() {
           path="/upload"
           element={
             <ProtectedRoute>
-              <UploadResume />
+              <Layout>
+                <UploadResume />
+              </Layout>
             </ProtectedRoute>
           }
         />
@@ -43,7 +53,9 @@ function App() {
           path="/career-analysis"
           element={
             <ProtectedRoute>
-              <CareerAnalysis />
+              <Layout>
+                <CareerAnalysis />
+              </Layout>
             </ProtectedRoute>
           }
         />
@@ -52,7 +64,9 @@ function App() {
           path="/job-match"
           element={
             <ProtectedRoute>
-              <JobMatch />
+              <Layout>
+                <JobMatch />
+              </Layout>
             </ProtectedRoute>
           }
         />
@@ -62,7 +76,9 @@ function App() {
           path="/ats-score"
           element={
             <ProtectedRoute>
-              <ATSScore />
+              <Layout>
+                <ATSScore />
+              </Layout>
             </ProtectedRoute>
           }
         />
@@ -71,7 +87,9 @@ function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <Profile />
+              <Layout>
+                <Profile />
+              </Layout>
             </ProtectedRoute>
           }
         />

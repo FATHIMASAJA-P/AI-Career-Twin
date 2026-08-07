@@ -11,27 +11,31 @@ oauth2_scheme = OAuth2PasswordBearer(
 )
 
 
+
+
+
+
+
 def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db)
 ):
-    try:
-        # Get email from JWT token
-        email = verify_access_token(token)
+    print("\n========== DEBUG ==========")
+    print("Received Token:", token)
 
-        # Find user in database
-        user = get_user_by_email(db, email)
+    email = verify_access_token(token)
 
-        if user is None:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="User not found"
-            )
+    print("Email from Token:", email)
 
-        return user
+    user = get_user_by_email(db, email)
 
-    except Exception:
+    print("Database User:", user)
+    print("===========================\n")
+
+    if user is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired token"
+            detail="User not found"
         )
+
+    return user

@@ -123,3 +123,5 @@ Resume:
             "resume_improvements": [],
             "final_verdict": "Unable to generate ATS score."
         }
+
+

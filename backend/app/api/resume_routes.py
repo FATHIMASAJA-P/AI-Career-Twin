@@ -22,6 +22,8 @@ async def upload_resume(
 ):
 
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    if file.content_type != "application/pdf":
+        return {"message": "Only PDF files are allowed."}
 
     file_path = os.path.join(UPLOAD_FOLDER, file.filename)
 

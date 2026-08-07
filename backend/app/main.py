@@ -12,6 +12,8 @@ from app.api.resume_routes import router as resume_router
 from app.api.ai_routes import router as ai_router
 from app.api.job_match_routes import router as job_match_router
 from app.api import ats_routes
+from app.api.dashboard_routes import router as dashboard_router
+from app.api.report_routes import router as report_router
 app = FastAPI()
 
 # -------------------- CORS --------------------
@@ -38,6 +40,8 @@ app.include_router(resume_router)
 app.include_router(ai_router)
 app.include_router(job_match_router)
 app.include_router(ats_routes.router)
+app.include_router(dashboard_router)
+app.include_router(report_router)
 
 
 @app.get("/")

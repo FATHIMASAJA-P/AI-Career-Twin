@@ -22,7 +22,12 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
             detail="Email already exists"
         )
 
-    new_user = create_user(db, user)
+    new_user = create_user(
+    db=db,
+    name=user.name,
+    email=user.email,
+    password=user.password,
+)
 
     return {
         "message": "User registered successfully",
@@ -66,4 +71,18 @@ def update_profile(
             "github": updated_user.github,
             "linkedin": updated_user.linkedin
         }
+    }
+
+@router.get("/profile")
+def get_profile(current_user: User = Depends(get_current_user)):
+    return {
+        "id": current_user.id,
+        "name": current_user.name,
+        "email": current_user.email,
+        "career_goal": current_user.career_goal,
+        "education": current_user.education,
+        "experience": current_user.experience,
+        "skills": current_user.skills,
+        "github": current_user.github,
+        "linkedin": current_user.linkedin,
     }

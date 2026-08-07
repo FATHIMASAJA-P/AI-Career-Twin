@@ -10,22 +10,21 @@ def get_user_by_email(db: Session, email: str):
 
 
 
-def create_user(db: Session, user: UserCreate):
-    new_user = User(
-        name=user.name,
-        email=user.email,
-        password=hash_password(user.password),
-        career_goal=user.career_goal,
+def create_user(db: Session, name: str, email: str, password: str):
+    user = User(
+        name=name,
+        email=email,
+        password=hash_password(password),
     )
 
-    db.add(new_user)
+    db.add(user)
     db.commit()
-    db.refresh(new_user)
+    db.refresh(user)
 
-    return new_user
+    return user
 
 def update_user_profile(db: Session, user: User, profile: UserProfileUpdate):
-
+    user.career_goal = profile.career_goal
     user.education = profile.education
     user.experience = profile.experience
     user.skills = profile.skills

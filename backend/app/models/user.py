@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String 
+
 from sqlalchemy.orm import relationship
 from app.database.base import Base
 
@@ -17,6 +18,11 @@ class User(Base):
     skills = Column(String, nullable=True)
     github = Column(String, nullable=True)
     linkedin = Column(String, nullable=True)
+
+
+    #career_analysis_done = Column(Boolean, default=False)
+    #job_match_done = Column(Boolean, default=False)
+    #ats_done = Column(Boolean, default=False)
 
     # Relationship with Resume table
     resumes = relationship("Resume", back_populates="user")

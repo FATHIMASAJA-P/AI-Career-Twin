@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
+from fastapi import HTTPException, status
 
 SECRET_KEY = "your_super_secret_key_change_this_in_production"
 
@@ -32,6 +33,8 @@ def verify_access_token(token: str):
             algorithms=[ALGORITHM]
         )
 
+        print("Decoded Payload:", payload)
+
         email = payload.get("sub")
 
         if email is None:
@@ -42,7 +45,9 @@ def verify_access_token(token: str):
 
         return email
 
-    except JWTError:
+    except JWTError as e:
+        print("JWT ERROR:", e)
+
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired token"

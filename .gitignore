@@ -12,6 +12,11 @@ __pycache__/
 # Node.js
 node_modules/
 
+
+
+# Generated PDF reports
+reports/
+
 # Uploaded resumes
 uploads/
 
@@ -25,5 +30,7 @@ Thumbs.db
 
 # Database
 career_twin.db
+
+
 
 
